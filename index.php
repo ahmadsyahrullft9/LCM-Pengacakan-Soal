@@ -4,7 +4,7 @@
 
 require_once 'factor.php';
 
-$jumlahsiswa = 10; //jumlah siswa
+$jumlahsiswa = 20; //jumlah siswa
 $jumlahsoalpersiswa = 50; //jumlah soal tiap siswa
 
 $m = $jumlahsoalpersiswa; //jumlah seluruh soal // 2x5x5x1
@@ -19,6 +19,7 @@ $a = $a + 1; // dimana a-1 akan habis dibagi dengan nilai faktor prima dari m
 
 $acak = array();
 $size = array();
+$range = range(0, $m);
 
 $j = 0;
 while($j < $jumlahsiswa){
@@ -27,8 +28,12 @@ while($j < $jumlahsiswa){
 	while($rand % 2 == 0) {
 		$rand = rand(0, $m);
 	}*/
-	
-	$numbers[0] = rand(0, $m);
+	if(sizeof($range) < 1){
+		$range = range(0, $m);
+	}
+	$numb = rand(0, sizeof($range)-1);
+	$numbers[0] = $range[$numb];
+	array_splice($range, $numb, 1);
 
 	$i = 1;
 	while($i < $m){
@@ -37,7 +42,6 @@ while($j < $jumlahsiswa){
 
 		$i++;
 	}
-	//unset($numbers[0]);
 	array_push($acak, $numbers);
 	
 	array_push($size, [
@@ -48,6 +52,4 @@ while($j < $jumlahsiswa){
 }
 
 header('content-type:application/json');
-echo json_encode([
-	'acak'=>$acak, 'size'=>$size, 'a'=>$a, 'b'=>$b, 'm'=>$m
-]);
+echo json_encode($acak);

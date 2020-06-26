@@ -38,5 +38,25 @@ function factor($a){
 	return $arr;
 }
 
+function short_number($num){
+	for($i = 0; $i < sizeof($num) - 1; $i++){
+		$min = $i;
+		for($j = $i+1; $j < sizeof($num); $j++){
+			if($num[$j] < $num[$min]){
+				$min = $j;
+			}
+		}
+		$num = swap_position($num, $i, $min);
+	}
+	return $num;
+}
+
+function swap_position($data, $i, $min){
+	$backup_data = $data[$min];
+	$data[$min] = $data[$i];
+	$data[$i] = $backup_data;
+	return $data;
+}
+
 //header('content-type:application/json');
 //echo json_encode(factor($a));
